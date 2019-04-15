@@ -4,9 +4,9 @@ Created by <a href="http://xingyul.github.io">Xingyu Liu</a>, <a href="http://ch
 ![prediction example](https://github.com/xingyul/flownet3d/blob/master/doc/teaser.png)
 
 ### Citation
-If you find our work useful in your research, please consider citing:
+If you find our work useful in your research, please cite:
 
-        @article{flownet3d2019liu,
+        @article{liu:2019:flownet3d,
           title={FlowNet3D: Learning Scene Flow in 3D Point Clouds},
           author={Liu, Xingyu and Qi, Charles R and Guibas, Leonidas J},
           journal={CVPR},
