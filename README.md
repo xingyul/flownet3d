@@ -1,7 +1,7 @@
 ### FlowNet3D: *Learning Scene Flow in 3D Point Clouds*
 Created by <a href="http://xingyul.github.io">Xingyu Liu</a>, <a href="http://charlesrqi.com" target="_blank">Charles R. Qi</a> and <a href="http://geometry.stanford.edu/member/guibas/" target="_blank">Leonidas J. Guibas</a> from Stanford University.
 
-![prediction example](https://github.com/xingyul/flownet3d/blob/master/doc/teaser.png)
+<img src="https://github.com/xingyul/flownet3d/blob/master/doc/teaser.png" width="60%">
 
 ### Citation
 If you find our work useful in your research, please cite:
