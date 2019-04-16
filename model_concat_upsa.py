@@ -49,7 +49,7 @@ def get_model(point_cloud, is_training, bn_decay=None):
         # Frame 2, Layer 2
         l2_xyz_f2, l2_points_f2, l2_indices_f2 = pointnet_sa_module(l1_xyz_f2, l1_points_f2, npoint=256, radius=RADIUS2, nsample=16, mlp=[64,64,128], mlp2=None, group_all=False, is_training=is_training, bn_decay=bn_decay, scope='layer2')
 
-    _, l2_points_f1_new = pointnet_diff_sa_module(l2_xyz_f1, l2_xyz_f2, l2_points_f1, l2_points_f2, radius=5.0, nsample=64, mlp=[128,128,128], is_training=is_training, bn_decay=bn_decay, scope='diff', bn=True, pooling='max', knn=True, corr_func='concat')
+    _, l2_points_f1_new = flow_embedding_module(l2_xyz_f1, l2_xyz_f2, l2_points_f1, l2_points_f2, radius=5.0, nsample=64, mlp=[128,128,128], is_training=is_training, bn_decay=bn_decay, scope='flow_embedding', bn=True, pooling='max', knn=True, corr_func='concat')
 
     # Layer 3
     l3_xyz_f1, l3_points_f1, l3_indices_f1 = pointnet_sa_module(l2_xyz_f1, l2_points_f1_new, npoint=64, radius=RADIUS3, nsample=8, mlp=[128,128,256], mlp2=None, group_all=False, is_training=is_training, bn_decay=bn_decay, scope='layer3')
@@ -60,9 +60,9 @@ def get_model(point_cloud, is_training, bn_decay=None):
     end_points['l4_indices_f1'] = l4_indices_f1
 
     # Feature Propagation
-    l3_feat_f1 = pointnet_up_sa_module(l3_xyz_f1, l4_xyz_f1, l3_points_f1, l4_points_f1, nsample=8, radius=2.4, mlp=[], mlp2=[256,256], scope='up_sa_layer1', is_training=is_training, bn_decay=bn_decay, knn=True)
-    l2_feat_f1 = pointnet_up_sa_module(l2_xyz_f1, l3_xyz_f1, tf.concat(axis=-1, values=[l2_points_f1, l2_points_f1_new]), l3_feat_f1, nsample=8, radius=1.2, mlp=[128,128,256], mlp2=[256], scope='up_sa_layer2', is_training=is_training, bn_decay=bn_decay, knn=True)
-    l1_feat_f1 = pointnet_up_sa_module(l1_xyz_f1, l2_xyz_f1, l1_points_f1, l2_feat_f1, nsample=8, radius=0.6, mlp=[128,128,256], mlp2=[256], scope='up_sa_layer3', is_training=is_training, bn_decay=bn_decay, knn=True)
+    l3_feat_f1 = set_upconv_module(l3_xyz_f1, l4_xyz_f1, l3_points_f1, l4_points_f1, nsample=8, radius=2.4, mlp=[], mlp2=[256,256], scope='up_sa_layer1', is_training=is_training, bn_decay=bn_decay, knn=True)
+    l2_feat_f1 = set_upconv_module(l2_xyz_f1, l3_xyz_f1, tf.concat(axis=-1, values=[l2_points_f1, l2_points_f1_new]), l3_feat_f1, nsample=8, radius=1.2, mlp=[128,128,256], mlp2=[256], scope='up_sa_layer2', is_training=is_training, bn_decay=bn_decay, knn=True)
+    l1_feat_f1 = set_upconv_module(l1_xyz_f1, l2_xyz_f1, l1_points_f1, l2_feat_f1, nsample=8, radius=0.6, mlp=[128,128,256], mlp2=[256], scope='up_sa_layer3', is_training=is_training, bn_decay=bn_decay, knn=True)
     l0_feat_f1 = pointnet_fp_module(l0_xyz_f1, l1_xyz_f1, l0_points_f1, l1_feat_f1, [256,256], is_training, bn_decay, scope='fa_layer4')
 
     # FC layers
