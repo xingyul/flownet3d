@@ -1,5 +1,5 @@
 ### FlowNet3D: *Learning Scene Flow in 3D Point Clouds*
-Created by <a href="http://xingyul.github.io">Xingyu Liu</a>, <a href="http://charlesrqi.com" target="_blank">Charles R. Qi</a> and <a href="http://geometry.stanford.edu/member/guibas/" target="_blank">Leonidas J. Guibas</a> from Stanford University.
+Created by <a href="http://xingyul.github.io">Xingyu Liu</a>, <a href="http://charlesrqi.com" target="_blank">Charles R. Qi</a> and <a href="http://geometry.stanford.edu/member/guibas/" target="_blank">Leonidas J. Guibas</a> from Stanford University and Facebook AI Research (FAIR).
 
 <img src="https://github.com/xingyul/flownet3d/blob/master/doc/teaser.png" width="60%">
 
@@ -44,7 +44,7 @@ Then `cd` into directory `data_preprocessing` and execute command to generate .n
 proc_dataset_gen_point_pairs_color.py --input_dir /path/to/flyingthings3d --output_dir data_processed_maxcut_35_20k_2k_8192
 ```
 
-The processed data is also provided <a href="https://drive.google.com/file/d/1CMaxdt-Tg1Wct8v8eGNwuT7qRSIyJPY-/view?usp=sharing">here</a> for download.
+The processed data is also provided <a href="https://drive.google.com/file/d/1CMaxdt-Tg1Wct8v8eGNwuT7qRSIyJPY-/view?usp=sharing">here</a> for download (total size ~11GB).
 
 #### Training and Evaluation
 
