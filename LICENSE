@@ -1,10 +1,6 @@
-PointNet++: Deep Hierarchical Feature Learning on Point Sets in a Metric Space.
+MIT License
 
-Copyright (c) 2017, Geometric Computation Group of Stanford University
-
-The MIT License (MIT)
-
-Copyright (c) 2017 Charles R. Qi
+Copyright (c) 2019 Xingyu Liu
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
