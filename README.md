@@ -41,7 +41,7 @@ The data preprocessing scripts are included in `data_preprocessing`. To process 
 Then `cd` into directory `data_preprocessing` and execute command to generate .npz files of processed data
 
 ```
-proc_dataset_gen_point_pairs_color.py --input_dir /path/to/flyingthings3d --output_dir data_processed_maxcut_35_20k_2k_8192
+python proc_dataset_gen_point_pairs_color.py --input_dir /path/to/flyingthings3d --output_dir data_processed_maxcut_35_20k_2k_8192
 ```
 
 The processed data is also provided <a href="https://drive.google.com/file/d/1CMaxdt-Tg1Wct8v8eGNwuT7qRSIyJPY-/view?usp=sharing">here</a> for download (total size ~11GB).
