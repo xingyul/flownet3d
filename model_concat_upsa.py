@@ -28,7 +28,7 @@ def get_model(point_cloud, is_training, bn_decay=None):
     l0_xyz_f1 = point_cloud[:, :num_point, 0:3]
     l0_points_f1 = point_cloud[:, :num_point, 3:]
     l0_xyz_f2 = point_cloud[:, num_point:, 0:3]
-    l0_points_f2 = point_cloud[:, :num_point, 3:]
+    l0_points_f2 = point_cloud[:, num_point:, 3:]
 
     RADIUS1 = 0.5
     RADIUS2 = 1.0
