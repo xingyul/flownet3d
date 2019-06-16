@@ -64,7 +64,7 @@ A pre-trained model is provided <a href="https://drive.google.com/open?id=1Ko25s
 
 #### KITTI Experiment
 
-To be released. Stay Tuned.
+We release the processed KITTI scene flow dataset <a href="https://drive.google.com/open?id=1XBsF35wKY0rmaL7x7grD_evvKCAccbKi">here</a> for download (total size ~266MB). The KITTI scene flow dataset was processed by converting the 2D optical flow into 3D scene flow and removing the ground points. We processed the first 150 data points from KITTI scene flow dataset. Each of the data points are stored as a `.npz` file and its dictionary has three keys: `pos1`, `pos2` and `gt`, representing the first frame of point cloud, second frame of point cloud and the ground truth scene flow vectors for the points in the first frame.
 
 ### License
 Our code is released under MIT License (see LICENSE file for details).
