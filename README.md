@@ -60,6 +60,8 @@ To evaluate the model, simply execute the shell script `command_evaluate.sh`.
 sh command_evaluate.sh
 ```
 
+A pre-trained model is provided <a href="https://drive.google.com/open?id=1Ko25szFFKHOq-SPryKbi9ljpOkoe69aO">here</a> for download.
+
 #### KITTI Experiment
 
 To be released. Stay Tuned.
