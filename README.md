@@ -71,5 +71,7 @@ Our code is released under MIT License (see LICENSE file for details).
 
 ### Related Projects
 
+* <a href="https://arxiv.org/abs/1905.07853" target="_blank">Learning Video Representations from Correspondence Proposals
+</a> by Liu et al. (CVPR 2019 Oral Presentation). Code and data released in <a href="https://github.com/xingyul/cpnet">GitHub</a>.
 * <a href="http://stanford.edu/~rqi/pointnet" target="_blank">PointNet: Deep Learning on Point Sets for 3D Classification and Segmentation</a> by Qi et al. (CVPR 2017 Oral Presentation). Code and data released in <a href="https://github.com/charlesq34/pointnet">GitHub</a>.
 * <a href="http://stanford.edu/~rqi/pointnet2" target="_blank">PointNet++: Deep Hierarchical Feature Learning on Point Sets in a Metric Space</a> by Qi et al. (NIPS 2017). Code and data released in <a href="https://github.com/charlesq34/pointnet2">GitHub</a>.
