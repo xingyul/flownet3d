@@ -247,7 +247,11 @@ def flow_embedding_module(xyz1, xyz2, feat1, feat2, radius, nsample, mlp, is_tra
     if knn:
         _, idx = knn_point(nsample, xyz2, xyz1)
     else:
-        idx, _ = query_ball_point(radius, nsample, xyz2, xyz1)
+        idx, cnt = query_ball_point(radius, nsample, xyz2, xyz1)
+        _, idx_knn = knn_point(nsample, xyz2, xyz1)
+        cnt = tf.tile(tf.expand_dims(cnt, -1), [1,1,nsample])
+        idx = tf.where(cnt > (nsample-1), idx, idx_knn)
+
     xyz2_grouped = group_point(xyz2, idx) # batch_size, npoint, nsample, 3
     xyz1_expanded = tf.expand_dims(xyz1, 2) # batch_size, npoint, 1, 3
     xyz_diff = xyz2_grouped - xyz1_expanded # batch_size, npoint, nsample, 3
