@@ -23,6 +23,10 @@ class SceneflowDataset():
         self.cache = {}
         self.cache_size = 30000
 
+        ###### deal with one bad datapoint with nan value
+        self.datapath = [d for d in self.datapath if 'TRAIN_C_0140_left_0006-0' not in d]
+        ######
+
     def __getitem__(self, index):
         if index in self.cache:
             pos1, pos2, color1, color2, flow, mask1 = self.cache[index]
