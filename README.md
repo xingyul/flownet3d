@@ -48,16 +48,16 @@ The processed data is also provided <a href="https://drive.google.com/file/d/1CM
 
 #### Training and Evaluation
 
-To train the model, simply execute the shell script `command_train.sh`. Batch size, learning rate etc are adjustable.
+To train the model, simply execute the shell script `command_train.sh`. Batch size, learning rate etc are adjustable. The model used for training is `model_concat_upsa.py`.
 
 ```
 sh command_train.sh
 ```
 
-To evaluate the model, simply execute the shell script `command_evaluate.sh`.
+To evaluate the model, simply execute the shell script `command_evaluate_flyingthings.sh`.
 
 ```
-sh command_evaluate.sh
+sh command_evaluate_flyingthings.sh
 ```
 
 A pre-trained model is provided <a href="https://drive.google.com/open?id=1Ko25szFFKHOq-SPryKbi9ljpOkoe69aO">here</a> for download.
@@ -65,6 +65,12 @@ A pre-trained model is provided <a href="https://drive.google.com/open?id=1Ko25s
 #### KITTI Experiment
 
 We release the processed KITTI scene flow dataset <a href="https://drive.google.com/open?id=1XBsF35wKY0rmaL7x7grD_evvKCAccbKi">here</a> for download (total size ~266MB). The KITTI scene flow dataset was processed by converting the 2D optical flow into 3D scene flow and removing the ground points. We processed the first 150 data points from KITTI scene flow dataset. Each of the data points are stored as a `.npz` file and its dictionary has three keys: `pos1`, `pos2` and `gt`, representing the first frame of point cloud, second frame of point cloud and the ground truth scene flow vectors for the points in the first frame.
+
+To evaluate the FlyingThings3D trained model on KITTI without finetuning, first download the processed KITTI data and extract it into `kitti_rm_ground/` directory. Then execute the shell script `command_evaluate_kitti.sh`. 
+```
+sh command_evaluate_kitti.sh
+```
+Note that the model used for evaluation is in `model_concat_upsa_eval_kitti.py` instead of the model used for training. The average 3D EPE result is approximately 0.175m, better than what was reported in the paper.
 
 ### License
 Our code is released under MIT License (see LICENSE file for details).
