@@ -11,12 +11,12 @@ import os
 import sys
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
-import flying_things_dataset
 import pickle
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--gpu', type=int, default=0, help='GPU to use [default: GPU 0]')
 parser.add_argument('--model', default='model_concat_upsa', help='Model name [default: model_concat_upsa]')
+parser.add_argument('--dataset', default='flying_things_dataset', help='Dataset name [default: flying_things_dataset]')
 parser.add_argument('--data', default='data_preprocessing/data_processed_maxcut_35_20k_2k_8192', help='Dataset directory [default: /data_preprocessing/data_processed_maxcut_35_20k_2k_8192]')
 parser.add_argument('--model_path', default='log_train/model.ckpt', help='model checkpoint file path [default: log_train/model.ckpt]')
 parser.add_argument('--log_dir', default='log_evaluate', help='Log dir [default: log_evaluate]')
@@ -41,7 +41,8 @@ os.system('cp %s %s' % (__file__, LOG_DIR)) # bkp of train procedure
 LOG_FOUT = open(os.path.join(LOG_DIR, 'log_evaluate.txt'), 'w')
 LOG_FOUT.write(str(FLAGS)+'\n')
 
-TEST_DATASET = flying_things_dataset.SceneflowDataset(DATA, npoints=NUM_POINT, train=False)
+DATASET = importlib.import_module(FLAGS.dataset)
+TEST_DATASET = DATASET.SceneflowDataset(DATA, npoints=NUM_POINT, train=False)
 
 def log_string(out_str):
     LOG_FOUT.write(out_str+'\n')
@@ -91,14 +92,11 @@ def get_batch(dataset, idxs, start_idx, end_idx):
     shuffle_idx = np.arange(NUM_POINT)
     np.random.shuffle(shuffle_idx)
     for i in range(bsize):
-        pc1,pc2,color1,color2,vel,mask1 = dataset[idxs[i+start_idx]]
-        # Move pc1 to center
-        # pc1_center = np.mean(pc1, 0)
-        # pc1 -= pc1_center
-        # pc2 -= pc1_center
-        batch_data[i,0:NUM_POINT,0:3] = pc1[shuffle_idx,:]
-        batch_data[i,0:NUM_POINT,3:] = color1[shuffle_idx,:]
-        batch_data[i,NUM_POINT:,0:3] = pc2[shuffle_idx,:]
+        pc1, pc2, color1, color2, vel, mask1 = dataset[idxs[i+start_idx]]
+
+        batch_data[i,:NUM_POINT,:3] = pc1[shuffle_idx,:]
+        batch_data[i,:NUM_POINT,3:] = color1[shuffle_idx,:]
+        batch_data[i,NUM_POINT:,:3] = pc2[shuffle_idx,:]
         batch_data[i,NUM_POINT:,3:] = color2[shuffle_idx,:]
         batch_label[i,:,:] = vel[shuffle_idx,:]
         batch_mask[i,:] = mask1[shuffle_idx]
@@ -125,8 +123,6 @@ def eval_one_epoch(sess, ops):
     """ ops: dict mapping from string to tf ops """
     is_training = False
     test_idxs = np.arange(0, len(TEST_DATASET))
-    np.random.seed(0)
-    np.random.shuffle(test_idxs)
     # Test on all data: last batch might be smaller than BATCH_SIZE
     num_batches = (len(TEST_DATASET)+BATCH_SIZE-1) // BATCH_SIZE
 
@@ -148,7 +144,6 @@ def eval_one_epoch(sess, ops):
         end_idx = min(len(TEST_DATASET), (batch_idx+1) * BATCH_SIZE)
         cur_batch_size = end_idx-start_idx
         cur_batch_data, cur_batch_label, cur_batch_mask = get_batch(TEST_DATASET, test_idxs, start_idx, end_idx)
-        print(cur_batch_data.shape)
         if cur_batch_size == BATCH_SIZE:
             batch_data = cur_batch_data
             batch_label = cur_batch_label
