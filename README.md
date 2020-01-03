@@ -70,7 +70,7 @@ To evaluate the FlyingThings3D trained model on KITTI without finetuning, first 
 ```
 sh command_evaluate_kitti.sh
 ```
-Note that the model used for evaluation is in `model_concat_upsa_eval_kitti.py` instead of the model used for training. The average 3D EPE result is approximately 0.175m, better than what was reported in the paper.
+Note that the model used for evaluation is in `model_concat_upsa_eval_kitti.py` instead of the model used for training.
 
 ### License
 Our code is released under MIT License (see LICENSE file for details).
