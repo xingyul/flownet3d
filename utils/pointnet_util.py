@@ -303,7 +303,7 @@ def set_upconv_module(xyz1, xyz2, feat1, feat2, nsample, mlp, mlp2, is_training,
         feat1: (batch_size, npoint1, channel1) features for xyz1 points (earlier layers)
         feat2: (batch_size, npoint2, channel2) features for xyz2 points
     Output:
-        feat1_new: (batch_size, npoint2, mlp[-1] or mlp2[-1] or channel1+3)
+        feat1_new: (batch_size, npoint1, mlp[-1] or mlp2[-1] or channel1+3)
 
         TODO: Add support for skip links. Study how delta(XYZ) plays a role in feature updating.
     """
